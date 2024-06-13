@@ -66,6 +66,8 @@ void RunLogic(void)
         case 50: //testing score increment
             gameM->incrementScore();
             break;
+        default:
+            break;
     }
     gameM->clearInput();
     
@@ -109,11 +111,8 @@ void DrawScreen(void)
 
     MacUILib_printf("Test ??? \n");
 
-    // char input = gameM->getInput();
-    // int score = gameM->getScore();
-
-    // MacUILib_printf("Input: %c\n", input); 
-    // MacUILib_printf("Score: %d\n", score);
+    // MacUILib_printf("Input: %c\n", gameM->getInput()); 
+    // MacUILib_printf("Score: %d\n", gameM->getScore());
     // if (gameM->getLoseFlagStatus() == true){
     //     MacUILib_printf("You lose!\n");
     //     gameM->setExitTrue();
