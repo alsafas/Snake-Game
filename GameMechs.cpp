@@ -1,11 +1,15 @@
 #include "GameMechs.h"
 #include "MacUILib.h"
 
+#include "objPos.h"
+#include "objPosArrayList.h"
+
 GameMechs::GameMechs()
 {
     input = 0;
     exitFlag = false;
     loseFlag = false;
+    
 
     score = 0;
     boardSizeX = 30;   //Default board size
@@ -24,9 +28,9 @@ GameMechs::GameMechs(int boardX, int boardY)
 }
 
 // do you need a destructor?
-GameMechs::~GameMechs(){
+// GameMechs::~GameMechs(){
 
-}
+// }
 
 
 //Getters
@@ -78,9 +82,7 @@ void GameMechs::setLoseFlag()
 
 void GameMechs::setInput(char this_input)
 {
-    if (MacUILib_hasChar() != 0){
-        input = MacUILib_getChar();
-    }
+    input = this_input;
 }
 
 void GameMechs::clearInput()
@@ -100,3 +102,11 @@ void GameMechs::incrementScore()
 }
 // Provide definitions of more member functions as required
 // See Project Manual
+
+void GameMechs::generateFood(objPosArrayList* blockOff){
+
+}
+
+void GameMechs::getFoodPos(objPos &returnPos){
+
+}

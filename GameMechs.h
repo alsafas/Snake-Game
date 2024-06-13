@@ -10,6 +10,7 @@
 using namespace std;
 
 
+
 class GameMechs
 {   
 
@@ -24,12 +25,14 @@ class GameMechs
         int boardSizeX;
         int boardSizeY;
 
+        //objPos foodPos;
+
     public:
 
         //constructors
         GameMechs();
         GameMechs(int boardX, int boardY);
-        ~GameMechs();
+        //~GameMechs();
 
         //getters
         bool getExitFlagStatus();
@@ -46,6 +49,10 @@ class GameMechs
         void setInput(char this_input);
         void clearInput();
         void incrementScore();
+        
+        //methods
+        void generateFood(objPosArrayList* blockOff);
+        void getFoodPos(objPos &returnPos);
 };
 
 #endif
