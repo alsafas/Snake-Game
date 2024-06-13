@@ -5,14 +5,20 @@ GameMechs::GameMechs()
 {
     input = 0;
     exitFlag = false;
-    boardSizeX = 20;   //Default board size
-    boardSizeY = 10;
+    loseFlag = false;
+
+    score = 0;
+    boardSizeX = 30;   //Default board size
+    boardSizeY = 15;
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
 {
     input = 0;
     exitFlag = false;
+    loseFlag = false;
+
+    score = 0;
     boardSizeX = boardX;   
     boardSizeY = boardY;
 }
@@ -23,9 +29,16 @@ GameMechs::~GameMechs(){
 }
 
 
+//Getters
+
 bool GameMechs::getExitFlagStatus()
 {
     return exitFlag;
+}
+
+bool GameMechs::getLoseFlagStatus()
+{
+    return loseFlag;
 }
 
 char GameMechs::getInput()
@@ -46,21 +59,44 @@ int GameMechs::getBoardSizeY()
     return boardSizeY;
 }
 
+int GameMechs::getScore()
+{
+    return score;
+}
+
+//Setters
  
 void GameMechs::setExitTrue()
 {
+    exitFlag = true;
+}
 
+void GameMechs::setLoseFlag()
+{
+    loseFlag = true;
 }
 
 void GameMechs::setInput(char this_input)
 {
-
+    if (MacUILib_hasChar() != 0){
+        input = MacUILib_getChar();
+    }
 }
 
 void GameMechs::clearInput()
 {
-
+    input = 0;
 }
 
+void GameMechs::incrementScore()
+{
+    score++;
+
+    /*Specialized setter for the score field. 
+    Assumption is that the score can only be incremented 1 
+    at a time for every food item collected.
+    You may consider changing this method to allow the 
+    score to be increased by numbers other than 1*/
+}
 // Provide definitions of more member functions as required
 // See Project Manual

@@ -12,36 +12,40 @@ using namespace std;
 
 class GameMechs
 {   
-    // GameMechs is the Game Mechanism class
-    // Construct the remaining declaration from the project manual.
 
-    // Only some sample members are included here
-
-    // You will include more data members and member functions to complete your design.
+    //all variables and methods created based on UML diagram 
 
     private:
         char input;
         bool exitFlag;
+        bool loseFlag;
         
+        int score;
         int boardSizeX;
         int boardSizeY;
 
     public:
+
+        //constructors
         GameMechs();
         GameMechs(int boardX, int boardY);
         ~GameMechs();
 
+        //getters
         bool getExitFlagStatus();
-        void setExitTrue();
-
+        bool getLoseFlagStatus();
         char getInput();
-        void setInput(char this_input);
-        void clearInput();
-
         int getBoardSizeX();
         int getBoardSizeY();
-      
+        int getScore();
 
+
+        //setters
+        void setExitTrue();
+        void setLoseFlag();
+        void setInput(char this_input);
+        void clearInput();
+        void incrementScore();
 };
 
 #endif
