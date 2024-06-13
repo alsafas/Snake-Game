@@ -18,7 +18,7 @@ void DrawScreen(void);
 void LoopDelay(void);
 void CleanUp(void);
 
-int i, j;
+int i, j, speed;
 
 int main(void)
 {
@@ -44,6 +44,7 @@ void Initialize(void)
     MacUILib_clearScreen();
 
     gameM = new GameMechs();
+    speed = 1;
 
 }
 
@@ -60,16 +61,35 @@ void RunLogic(void)
         case 27:  // Escape to exit
             gameM->setExitTrue();
             break;
-        case 49: //testing lose flag
+        case '1':
+            speed = 1;
+            break;
+        case '2':
+            speed = 2;
+           break;
+        case '3':
+            speed = 3;
+            break;
+        case '4':   
+            speed = 4;
+            break;
+        case '5':
+            speed = 5;
+            break;
+        case '0': //testing lose flag
             gameM->setLoseFlag();
             break;
-        case 50: //testing score increment
+        case '=': //testing score increment
             gameM->incrementScore();
             break;
         default:
             break;
     }
     gameM->clearInput();
+
+    if (gameM->getLoseFlagStatus() == true){
+        gameM->setExitTrue();
+    } 
     
 }
 
@@ -109,24 +129,49 @@ void DrawScreen(void)
 
     //Game info + Testing functions
 
-    MacUILib_printf("Input: %c\n", gameM->getInput()); 
+    MacUILib_printf("Press 1-5 to change speed\n");
+    MacUILib_printf("1: Slowest  2: Slow  3: Normal  4: Fast  5: Fastest\n");
     MacUILib_printf("Score: %d\n", gameM->getScore());
-    if (gameM->getLoseFlagStatus() == true){
-        MacUILib_printf("You lose!\n");
-        gameM->setExitTrue();
-    }
-
+    MacUILib_printf("Press 0 to test lose flag\n");
+    MacUILib_printf("Press = to test score increment\n");
+    
 }
 
 void LoopDelay(void)
 {
-    MacUILib_Delay(DELAY_CONST); // 0.1s delay
+    switch(speed){
+
+        case 1:
+            MacUILib_Delay(DELAY_CONST*5);
+            break;
+        case 2:
+            MacUILib_Delay(DELAY_CONST*4);
+            break;
+        case 3:
+            MacUILib_Delay(DELAY_CONST*3);
+            break;
+        case 4:
+            MacUILib_Delay(DELAY_CONST*2);
+            break;
+        case 5:
+            MacUILib_Delay(DELAY_CONST);
+            break;
+        default:
+            MacUILib_Delay(DELAY_CONST);
+            break;
+    }
+
 }
 
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();    
+    MacUILib_clearScreen();   
+    if (gameM->getLoseFlagStatus() == true){
+        MacUILib_printf("\nGame Over!\n\n");
+    }
+    MacUILib_printf("Final score: %d\n", gameM->getScore());
+
     delete gameM;
     MacUILib_uninit();
 }
