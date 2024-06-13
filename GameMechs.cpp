@@ -92,13 +92,15 @@ void GameMechs::clearInput()
 
 void GameMechs::incrementScore()
 {
-    score++;
+    score+=5;
 
     /*Specialized setter for the score field. 
     Assumption is that the score can only be incremented 1 
     at a time for every food item collected.
     You may consider changing this method to allow the 
     score to be increased by numbers other than 1*/
+
+    /* if special food is eaten then score increased by 10*/
 }
 // Provide definitions of more member functions as required
 // See Project Manual

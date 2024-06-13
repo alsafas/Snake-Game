@@ -7,7 +7,6 @@ using namespace std;
 
 #define DELAY_CONST 100000
 
-//bool exitFlag;
 
 GameMechs* gameM;
 
@@ -61,6 +60,12 @@ void RunLogic(void)
         case 27:  // Escape to exit
             gameM->setExitTrue();
             break;
+        case 49: //testing lose flag
+            gameM->setLoseFlag();
+            break;
+        case 50: //testing score increment
+            gameM->incrementScore();
+            break;
     }
     gameM->clearInput();
     
@@ -69,6 +74,8 @@ void RunLogic(void)
 void DrawScreen(void)
 {
     MacUILib_clearScreen();
+
+    //Game board
     MacUILib_printf("Press ESC to exit\n");   
     for (i=0; i<=gameM->getBoardSizeX(); i++){  
         MacUILib_printf("#");
@@ -80,9 +87,13 @@ void DrawScreen(void)
             if(j == 0 || j == gameM->getBoardSizeX()){
                 MacUILib_printf("#");
             }
+
+
             // else if (player.x == j && player.y == i){
             //     MacUILib_printf("%c", player.symbol);
             // }
+
+
             else{
                 MacUILib_printf(" ");
             }
@@ -92,8 +103,21 @@ void DrawScreen(void)
     for (i=0; i<=gameM->getBoardSizeX(); i++){  
         MacUILib_printf("#");
     }
-    MacUILib_printf("\n"); 
+    MacUILib_printf("\n");
 
+    //Game info
+
+    MacUILib_printf("Test ??? \n");
+
+    // char input = gameM->getInput();
+    // int score = gameM->getScore();
+
+    // MacUILib_printf("Input: %c\n", input); 
+    // MacUILib_printf("Score: %d\n", score);
+    // if (gameM->getLoseFlagStatus() == true){
+    //     MacUILib_printf("You lose!\n");
+    //     gameM->setExitTrue();
+    // }
 }
 
 void LoopDelay(void)
@@ -105,6 +129,6 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     MacUILib_clearScreen();    
-    delete[] gameM;
+    delete gameM;
     MacUILib_uninit();
 }
