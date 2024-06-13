@@ -107,16 +107,15 @@ void DrawScreen(void)
     }
     MacUILib_printf("\n");
 
-    //Game info
+    //Game info + Testing functions
 
-    MacUILib_printf("Test ??? \n");
+    MacUILib_printf("Input: %c\n", gameM->getInput()); 
+    MacUILib_printf("Score: %d\n", gameM->getScore());
+    if (gameM->getLoseFlagStatus() == true){
+        MacUILib_printf("You lose!\n");
+        gameM->setExitTrue();
+    }
 
-    // MacUILib_printf("Input: %c\n", gameM->getInput()); 
-    // MacUILib_printf("Score: %d\n", gameM->getScore());
-    // if (gameM->getLoseFlagStatus() == true){
-    //     MacUILib_printf("You lose!\n");
-    //     gameM->setExitTrue();
-    // }
 }
 
 void LoopDelay(void)
