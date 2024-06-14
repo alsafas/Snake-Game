@@ -89,7 +89,7 @@ void RunLogic(void)
         default:
             break;
     }
-    gameM->clearInput();
+    //gameM->clearInput();
 
     if (gameM->getLoseFlagStatus() == true){
         gameM->setExitTrue();
@@ -112,14 +112,15 @@ void DrawScreen(void)
 
     //Game board
     MacUILib_printf("Press ESC to exit\n");   
-    for (i=0; i<=gameM->getBoardSizeX(); i++){  
-        MacUILib_printf("#");
-    }
+
     MacUILib_printf("\n"); 
-    for (i=0; i<= (gameM->getBoardSizeY() - 1); i++){  
+    for (i = 0; i <= (gameM->getBoardSizeY() - 1); i++)
+    {  
         
-        for(j=0; j<=gameM->getBoardSizeX(); j++){ 
-            if(j == 0 || j == gameM->getBoardSizeX()){
+        for(j = 0; j <= (gameM->getBoardSizeX() -1); j++)
+        { 
+            if(j == 0 || j == gameM->getBoardSizeX()-1 || i == 0 || i == gameM->getBoardSizeY()-1)
+            {
                 MacUILib_printf("#");
             }
             else if(j == playerPosition.x && i == playerPosition.y)
@@ -132,9 +133,7 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n");
     }
-    for (i=0; i<=gameM->getBoardSizeX(); i++){  
-        MacUILib_printf("#");
-    }
+ 
     MacUILib_printf("\n");
 
     //Game info + Testing functions
@@ -144,7 +143,8 @@ void DrawScreen(void)
     MacUILib_printf("Score: %d\n", gameM->getScore());
     MacUILib_printf("Press 0 to test lose flag\n");
     MacUILib_printf("Press = to test score increment\n");
-    
+
+    MacUILib_printf("the direction is: %d", myPlayer->getenumdirection());
 }
 
 void LoopDelay(void)

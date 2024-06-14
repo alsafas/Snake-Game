@@ -66,15 +66,15 @@ void Player::movePlayer() //change everything to use game board
     // PPA3 Finite State Machine logic
     if(dir == UP)
     {
-        if(playerPos.y < 1)
+        if(playerPos.y <= 1)
         {
-            playerPos.y = mainGameMechsRef->getBoardSizeY(); //this should be equal to 9
+            playerPos.y = mainGameMechsRef->getBoardSizeY() - 1; 
         }
         playerPos.y--;
     }
     else if(dir == DOWN)
     {
-        if(playerPos.y > mainGameMechsRef->getBoardSizeY()-2) //this should be equal to 8
+        if(playerPos.y >= mainGameMechsRef->getBoardSizeY() - 2) 
         {
             playerPos.y = 0;
         }
@@ -84,18 +84,27 @@ void Player::movePlayer() //change everything to use game board
     {
         if(playerPos.x <= 1)
         {
-            playerPos.x = mainGameMechsRef->getBoardSizeX() -1; // should be eqaul to 19
+            playerPos.x = mainGameMechsRef->getBoardSizeX() - 1; 
         }
         playerPos.x--;
     }
-    else
+    else if(dir == RIGHT)
     {
-        if(playerPos.x >= mainGameMechsRef->getBoardSizeX() -2) // should be eqaul to 18
+        if(playerPos.x >= mainGameMechsRef->getBoardSizeX() -2) 
         {
             playerPos.x = 0;
         }
         playerPos.x++;
     }
+    else
+    {
+
+    }
+}
+
+Player::Dir Player::getenumdirection()
+{
+    return dir;
 }
  
  
