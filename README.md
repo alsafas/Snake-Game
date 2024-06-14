@@ -19,8 +19,8 @@ Student No.: 400450393
 
 Group Member 2 Information:
 
-Name: [Insert your full name here in format: Last name, First name]
+Name: Louerenco, Bethany
 
-MacID: [Insert your macID here]
+MacID: lourenb
 
-Student No.: [Insert your numerical 9-digit McMaster student number here]
+Student No.: 400399962
