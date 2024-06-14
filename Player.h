@@ -14,7 +14,7 @@ class Player
     // You will include more data members and member functions to complete your design.
 
     public:
-        enum Dir {STOP, UP, DOWN, LEFT, RIGHT};  // This is the direction state (FSM)
+        enum dir {STOP, UP, DOWN, LEFT, RIGHT};  // This is the direction state (FSM)
 
         Player(GameMechs* thisGMRef);
         ~Player();
@@ -25,7 +25,7 @@ class Player
 
     private:
         objPos playerPos;   // Upgrade this in iteration 3.       
-        enum Dir myDir;
+        enum dir dir;
 
         // Need a reference to the Main Game Mechanisms
         GameMechs* mainGameMechsRef;

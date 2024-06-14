@@ -2,6 +2,7 @@
 #include "MacUILib.h"
 #include "objPos.h"
 #include "GameMechs.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -9,7 +10,8 @@ using namespace std;
 
 
 GameMechs* gameM;
-
+Player* myPlayer;
+objPos playerPosition;
 
 void Initialize(void);
 void GetInput(void);
@@ -44,13 +46,15 @@ void Initialize(void)
     MacUILib_clearScreen();
 
     gameM = new GameMechs();
+    myPlayer = new Player(gameM);
     speed = 1;
 
+    myPlayer->getPlayerPos(playerPosition);
 }
 
 void GetInput(void)
 {
-   gameM->setInput(gameM->getInput());
+   //gameM->setInput(gameM->getInput());
 }
 
 void RunLogic(void)
@@ -90,6 +94,15 @@ void RunLogic(void)
     if (gameM->getLoseFlagStatus() == true){
         gameM->setExitTrue();
     } 
+
+       //run update player direction
+    myPlayer->updatePlayerDir();
+ 
+    //run move player
+    myPlayer->movePlayer();
+ 
+    //update the player position object for printing 
+    myPlayer->getPlayerPos(playerPosition);
     
 }
 
@@ -109,13 +122,10 @@ void DrawScreen(void)
             if(j == 0 || j == gameM->getBoardSizeX()){
                 MacUILib_printf("#");
             }
-
-
-            // else if (player.x == j && player.y == i){
-            //     MacUILib_printf("%c", player.symbol);
-            // }
-
-
+            else if(j == playerPosition.x && i == playerPosition.y)
+            {
+                MacUILib_printf("%c", playerPosition.symbol);
+            }
             else{
                 MacUILib_printf(" ");
             }
