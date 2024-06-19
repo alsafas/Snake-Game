@@ -24,7 +24,7 @@ class Player
         void updatePlayerDir();
         void movePlayer();
 
-
+        bool checkSelfCollision();
         //using this with food now
        Player::Dir getenumdirection();
     private:

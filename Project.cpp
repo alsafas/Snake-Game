@@ -122,6 +122,12 @@ void RunLogic(void)
     //update the player position object for printing 
     //myPlayer->getPlayerPos(playerPosition);
 
+    if (myPlayer->checkSelfCollision() == true)
+    {
+        gameM->setLoseFlag();
+        gameM->setExitTrue();
+    }
+
     gameM->clearInput();
     
 }

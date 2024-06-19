@@ -73,8 +73,10 @@ void Player::movePlayer() //change everything to use game board
 {
     objPos temp;
     objPos foodtemp;
+    objPos tailtemp;
     playerPosList->getHeadElement(temp);
     myfoodclass->getFoodPos(foodtemp);
+    playerPosList->getTailElement(tailtemp);
 
     // PPA3 Finite State Machine logic
     if(dir == UP)
@@ -94,6 +96,12 @@ void Player::movePlayer() //change everything to use game board
         {
             playerPosList->removeTail();
         }
+        if ( temp.x == tailtemp.x && temp.y == tailtemp.y)   
+        {
+            mainGameMechsRef->setLoseFlag();
+            mainGameMechsRef->setExitTrue();
+        }
+
        
     }
     else if(dir == DOWN)
@@ -112,6 +120,11 @@ void Player::movePlayer() //change everything to use game board
         else
         {
             playerPosList->removeTail();
+        }
+        if ( temp.x == tailtemp.x && temp.y == tailtemp.y)   
+        {
+            mainGameMechsRef->setLoseFlag();
+            mainGameMechsRef->setExitTrue();
         }
    
     }
@@ -132,6 +145,11 @@ void Player::movePlayer() //change everything to use game board
         {
             playerPosList->removeTail();
         }
+        if ( temp.x == tailtemp.x && temp.y == tailtemp.y)   
+        {
+            mainGameMechsRef->setLoseFlag();
+            mainGameMechsRef->setExitTrue();
+        }
     }
     else if(dir == RIGHT)
     {
@@ -150,11 +168,13 @@ void Player::movePlayer() //change everything to use game board
         {
             playerPosList->removeTail();
         }
+        if ( temp.x == tailtemp.x && temp.y == tailtemp.y)   
+        {
+            mainGameMechsRef->setLoseFlag();
+            mainGameMechsRef->setExitTrue();
+        }
     }
-    else
-    {
 
-    }
 
     if ( i < playerPosList->getSize()){
         mainGameMechsRef->incrementScore();
@@ -169,3 +189,18 @@ Player::Dir Player::getenumdirection()
 }
  
  
+bool Player::checkSelfCollision()
+{
+    objPos temp;
+    playerPosList->getHeadElement(temp);
+    objPos temp2;
+    for (int i = 1; i < playerPosList->getSize(); i++)
+    {
+        playerPosList->getElement(temp2, i);
+        if (temp.x == temp2.x && temp.y == temp2.y)
+        {
+            return true;
+        }
+    }
+    return false;
+}
