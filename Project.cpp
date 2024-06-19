@@ -178,6 +178,7 @@ void DrawScreen(void)
 
     MacUILib_printf("Press 1-5 to change speed\n");
     MacUILib_printf("1: Slowest  2: Slow  3: Normal  4: Fast  5: Fastest\n");
+    MacUILib_printf("Current Speed: %d\n", speed);
     MacUILib_printf("Score: %d\n", gameM->getScore());
 }
 
