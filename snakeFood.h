@@ -17,8 +17,8 @@ class snakeFood : public GameMechs , public objPos
     //all variables and methods created based on UML diagram 
 
     private:
-        objPos foodPos;
-        int listSize;
+        objPosArrayList* foodBucket;
+        int numofFood;
         int count, i, j, boardX, boardY;
         int vector[30][15];
         int x, y;
@@ -32,7 +32,7 @@ class snakeFood : public GameMechs , public objPos
         ~snakeFood();
         
         //getters
-        void getFoodPos(objPos &returnPos);
+        void getFoodPos(objPos &returnPos, int index);
 
         //methods
         void generateFood(objPosArrayList* accessarray);

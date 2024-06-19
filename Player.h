@@ -36,7 +36,7 @@ class Player
         //reference to food class
         snakeFood* myfoodclass;
 
-        int i;
+        //int scoreflag;
 };
 
 #endif

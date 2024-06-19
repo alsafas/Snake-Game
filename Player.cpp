@@ -7,7 +7,7 @@ Player::Player(GameMechs* thisGMRef, snakeFood* myfood)
     dir = STOP;
     myfoodclass = myfood;
 
-    i = 1;
+    //scoreflag = 1;
  
     // more actions to be included
     objPos temp(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '*'); //use getboardsize functions
@@ -71,11 +71,13 @@ void Player::updatePlayerDir()
  
 void Player::movePlayer() //change everything to use game board
 {
+    bool collision = false;
+    bool specialflag = false;
     objPos temp;
     objPos foodtemp;
     objPos tailtemp;
     playerPosList->getHeadElement(temp);
-    myfoodclass->getFoodPos(foodtemp);
+    //myfoodclass->getFoodPos(foodtemp);
     playerPosList->getTailElement(tailtemp);
 
     // PPA3 Finite State Machine logic
@@ -87,7 +89,31 @@ void Player::movePlayer() //change everything to use game board
         }
         temp.y--;
         playerPosList->insertHead(temp);
+        myfoodclass->getFoodPos(foodtemp, 0);
         if(temp.x == foodtemp.x && temp.y == foodtemp.y)
+            {
+                myfoodclass->clearFoodPos();
+                myfoodclass->generateFood(playerPosList);
+                collision = true;
+                specialflag = true;
+            }
+        for(int i = 1; i < 5; i++)
+        {
+            myfoodclass->getFoodPos(foodtemp, i);
+            if(temp.x == foodtemp.x && temp.y == foodtemp.y)
+            {
+                myfoodclass->clearFoodPos();
+                myfoodclass->generateFood(playerPosList);
+                collision = true;
+                break;
+            }
+        }
+        if(collision == false || specialflag == true)
+        {
+            playerPosList->removeTail();
+        }
+
+      /*   if(temp.x == foodtemp.x && temp.y == foodtemp.y)
         {
             myfoodclass->clearFoodPos();
             myfoodclass->generateFood(playerPosList);
@@ -95,7 +121,7 @@ void Player::movePlayer() //change everything to use game board
         else
         {
             playerPosList->removeTail();
-        }
+        } */
         if ( temp.x == tailtemp.x && temp.y == tailtemp.y)   
         {
             mainGameMechsRef->setLoseFlag();
@@ -112,15 +138,38 @@ void Player::movePlayer() //change everything to use game board
         }
         temp.y++;
         playerPosList->insertHead(temp);
+        myfoodclass->getFoodPos(foodtemp, 0);
         if(temp.x == foodtemp.x && temp.y == foodtemp.y)
+            {
+                myfoodclass->clearFoodPos();
+                myfoodclass->generateFood(playerPosList);
+                collision = true;
+                specialflag = true;
+            }
+        for(int i = 1; i < 5; i++)
         {
-            myfoodclass->clearFoodPos();
-            myfoodclass->generateFood(playerPosList);
+            myfoodclass->getFoodPos(foodtemp, i);
+            if(temp.x == foodtemp.x && temp.y == foodtemp.y)
+            {
+                myfoodclass->clearFoodPos();
+                myfoodclass->generateFood(playerPosList);
+                collision = true;
+                break;
+            }
         }
-        else
+        if(collision == false || specialflag == true)
         {
             playerPosList->removeTail();
         }
+        // if(temp.x == foodtemp.x && temp.y == foodtemp.y)
+        // {
+        //     myfoodclass->clearFoodPos();
+        //     myfoodclass->generateFood(playerPosList);
+        // }
+        // else
+        // {
+        //     playerPosList->removeTail();
+        // }
         if ( temp.x == tailtemp.x && temp.y == tailtemp.y)   
         {
             mainGameMechsRef->setLoseFlag();
@@ -136,7 +185,30 @@ void Player::movePlayer() //change everything to use game board
         }
         temp.x--;
         playerPosList->insertHead(temp);
+        myfoodclass->getFoodPos(foodtemp, 0);
         if(temp.x == foodtemp.x && temp.y == foodtemp.y)
+            {
+                myfoodclass->clearFoodPos();
+                myfoodclass->generateFood(playerPosList);
+                collision = true;
+                specialflag = true;
+            }
+        for(int i = 1; i < 5; i++)
+        {
+            myfoodclass->getFoodPos(foodtemp, i);
+            if(temp.x == foodtemp.x && temp.y == foodtemp.y)
+            {
+                myfoodclass->clearFoodPos();
+                myfoodclass->generateFood(playerPosList);
+                collision = true;
+                break;
+            }
+        }
+        if(collision == false || specialflag == true)
+        {
+            playerPosList->removeTail();
+        }
+      /*   if(temp.x == foodtemp.x && temp.y == foodtemp.y)
         {
             myfoodclass->clearFoodPos();
             myfoodclass->generateFood(playerPosList);
@@ -144,7 +216,7 @@ void Player::movePlayer() //change everything to use game board
         else
         {
             playerPosList->removeTail();
-        }
+        } */
         if ( temp.x == tailtemp.x && temp.y == tailtemp.y)   
         {
             mainGameMechsRef->setLoseFlag();
@@ -159,7 +231,30 @@ void Player::movePlayer() //change everything to use game board
         }
         temp.x++;
         playerPosList->insertHead(temp);
+        myfoodclass->getFoodPos(foodtemp, 0);
         if(temp.x == foodtemp.x && temp.y == foodtemp.y)
+            {
+                myfoodclass->clearFoodPos();
+                myfoodclass->generateFood(playerPosList);
+                collision = true;
+                specialflag = true;
+            }
+        for(int i = 1; i < 5; i++)
+        {
+            myfoodclass->getFoodPos(foodtemp, i);
+            if(temp.x == foodtemp.x && temp.y == foodtemp.y)
+            {
+                myfoodclass->clearFoodPos();
+                myfoodclass->generateFood(playerPosList);
+                collision = true;
+                break;
+            }
+        }
+        if(collision == false || specialflag == true)
+        {
+            playerPosList->removeTail();
+        }
+    /*     if(temp.x == foodtemp.x && temp.y == foodtemp.y)
         {
             myfoodclass->clearFoodPos();
             myfoodclass->generateFood(playerPosList);
@@ -167,7 +262,7 @@ void Player::movePlayer() //change everything to use game board
         else
         {
             playerPosList->removeTail();
-        }
+        } */
         if ( temp.x == tailtemp.x && temp.y == tailtemp.y)   
         {
             mainGameMechsRef->setLoseFlag();
@@ -176,9 +271,10 @@ void Player::movePlayer() //change everything to use game board
     }
 
 
-    if ( i < playerPosList->getSize()){
-        mainGameMechsRef->incrementScore();
-        i++;
+    if (collision == true)
+    {
+        mainGameMechsRef->incrementScore(specialflag);
+        //scoreflag++;
     }
  
 }

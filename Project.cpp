@@ -135,11 +135,11 @@ void RunLogic(void)
 void DrawScreen(void)
 {
     MacUILib_clearScreen();
-
+    objPos tempfood;
     objPos temp;
     bool printspace = true;
 
-    food->getFoodPos(foodPos);
+    //food->getFoodPos(foodPos);
 
     //Game board
     MacUILib_printf("Press ESC to exit\n");   
@@ -154,12 +154,22 @@ void DrawScreen(void)
                 MacUILib_printf("#");
                 printspace = false;
             }
-            else if(j == foodPos.x && i == foodPos.y)
+            else //if(j == foodPos.x && i == foodPos.y)
             {
-                MacUILib_printf("%c", foodPos.symbol);
-                printspace = false;
+                //MacUILib_printf("%c", foodPos.symbol);
+                //printspace = false;
+                for(int l = 0; l < 5; l++)
+                {
+                    food->getFoodPos(tempfood, l);
+                    if(tempfood.x == j && tempfood.y == i)
+                    {
+                        MacUILib_printf("%c", tempfood.symbol);
+                        printspace = false;
+                        break;
+                    }
+                }
             }
-            else 
+            if(printspace == true)
             {
                 for(int k = 0; k < myPlayerPosList->getSize(); k++)
                 {
@@ -224,7 +234,7 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     MacUILib_clearScreen();   
-    if (gameM->getLoseFlagStatus() == true){
+        if (gameM->getLoseFlagStatus() == true){
         MacUILib_printf("\nGame Over!\n\n");
     }
     MacUILib_printf("Final score: %d\n", gameM->getScore());

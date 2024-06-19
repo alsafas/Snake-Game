@@ -90,9 +90,17 @@ void GameMechs::clearInput()
     input = 0;
 }
  
-void GameMechs::incrementScore()
+void GameMechs::incrementScore(bool flag)
 {
-    score += 1;
+    if(flag == true)
+    {
+        score += 5;
+    }
+    else
+    {
+        score += 1;
+    }
+  
     /*Specialized setter for the score field.
     Assumption is that the score can only be incremented 1
     at a time for every food item collected.

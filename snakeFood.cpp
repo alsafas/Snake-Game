@@ -12,9 +12,9 @@ using namespace std;
 
 snakeFood::snakeFood()
 {
-    foodPos.setObjPos(-1,-1, 'o'); //Initialize outside the game board
+    foodBucket = new objPosArrayList(); //Initialize outside the game board
                                 //so that food is not initially displayed
-    listSize = 1;
+    numofFood = 5;
     count = 0;
     i, j, x, y;
     boardX = getBoardSizeX(); 
@@ -24,7 +24,7 @@ snakeFood::snakeFood()
 
 snakeFood::~snakeFood()
 {
-
+    delete foodBucket;
 }
 
 void snakeFood::generateFood(objPosArrayList* accessarray)
@@ -44,7 +44,7 @@ void snakeFood::generateFood(objPosArrayList* accessarray)
  
     //and then set the food position using the setObjPos method of the objPos class with newly generated x and y coordinates
     bool ontopflag = false;
-    int vector[30][15];
+    int vector[30][15] = {0};
  
     srand(time(NULL)); // Seed the random number generator with the current time
    
@@ -63,32 +63,81 @@ void snakeFood::generateFood(objPosArrayList* accessarray)
         }
     }
  
-    while(count < listSize)
+    while(count < numofFood-1)
     {
         x = rand() % (boardX -1);
         y = rand() % (boardY -1);
  
         objPos temp;
         objPos tempFoodPos;
- 
         tempFoodPos.setObjPos(x, y, 'o');
  
         if(vector[x][y] == 0)
         {
            for(int k = 0; k < accessarray->getSize(); k++)
+            {
+                accessarray->getElement(temp, k);
+                if(tempFoodPos.isPosEqual(&temp) == true)
                 {
-                    accessarray->getElement(temp, k);
-                    if(tempFoodPos.isPosEqual(&temp) == true)
-                    {
-                        ontopflag = true;
-                        break;
-                    }
-                }  
+                    ontopflag = true;
+                    break;
+                }
+            }  
+            for(int j = 0; j < foodBucket->getSize(); j++)
+            {
+                foodBucket->getElement(temp, j);
+                if(tempFoodPos.isPosEqual(&temp) == true)
+                {
+                    ontopflag = true;
+                    break;
+                }
+            }
          
         if(ontopflag == false)
         {
             vector[x][y]++;
-            foodPos.setObjPos(x, y, 'o');
+            //foodPos.setObjPos(x, y, 'o');
+            foodBucket->insertHead(tempFoodPos);
+            count++;
+        }
+        }
+        ontopflag = false;
+    }
+    while(count < numofFood)
+    {
+         x = rand() % (boardX -1);
+        y = rand() % (boardY -1);
+ 
+        objPos temp;
+        objPos tempFoodPos;
+        tempFoodPos.setObjPos(x, y, '?');
+ 
+        if(vector[x][y] == 0)
+        {
+           for(int k = 0; k < accessarray->getSize(); k++)
+            {
+                accessarray->getElement(temp, k);
+                if(tempFoodPos.isPosEqual(&temp) == true)
+                {
+                    ontopflag = true;
+                    break;
+                }
+            }  
+            for(int j = 0; j < foodBucket->getSize(); j++)
+            {
+                foodBucket->getElement(temp, j);
+                if(tempFoodPos.isPosEqual(&temp) == true)
+                {
+                    ontopflag = true;
+                    break;
+                }
+            }
+         
+        if(ontopflag == false)
+        {
+            vector[x][y]++;
+            //foodPos.setObjPos(x, y, 'o');
+            foodBucket->insertHead(tempFoodPos);
             count++;
         }
         }
@@ -97,12 +146,17 @@ void snakeFood::generateFood(objPosArrayList* accessarray)
  
 }
 
-void snakeFood::getFoodPos(objPos &returnPos)
+void snakeFood::getFoodPos(objPos &returnPos, int index)
 {
-    returnPos.setObjPos(foodPos.x, foodPos.y, foodPos.symbol);
+    foodBucket->getElement(returnPos, index);
+    //returnPos.setObjPos(foodPos.x, foodPos.y, foodPos.symbol);
 }
 
 void snakeFood::clearFoodPos(){
     count = 0;
-    foodPos.setObjPos(-1,-1, 'o');
+    for(int i = 0; i < foodBucket->getSize(); i++)
+    {
+        foodBucket->removeTail();
+    }
+    //foodPos.setObjPos(-1,-1, 'o');
 }

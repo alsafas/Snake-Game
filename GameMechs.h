@@ -46,7 +46,7 @@ class GameMechs
         void setLoseFlag();
         void setInput(char this_input);
         void clearInput();
-        void incrementScore();
+        void incrementScore(bool flag);
         
 };
 
