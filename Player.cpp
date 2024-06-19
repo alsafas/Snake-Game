@@ -6,6 +6,8 @@ Player::Player(GameMechs* thisGMRef, snakeFood* myfood)
     mainGameMechsRef = thisGMRef;
     dir = STOP;
     myfoodclass = myfood;
+
+    i = 1;
  
     // more actions to be included
     objPos temp(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '*'); //use getboardsize functions
@@ -85,6 +87,7 @@ void Player::movePlayer() //change everything to use game board
         playerPosList->insertHead(temp);
         if(temp.x == foodtemp.x && temp.y == foodtemp.y)
         {
+            myfoodclass->clearFoodPos();
             myfoodclass->generateFood(playerPosList);
         }
         else
@@ -103,6 +106,7 @@ void Player::movePlayer() //change everything to use game board
         playerPosList->insertHead(temp);
         if(temp.x == foodtemp.x && temp.y == foodtemp.y)
         {
+            myfoodclass->clearFoodPos();
             myfoodclass->generateFood(playerPosList);
         }
         else
@@ -121,6 +125,7 @@ void Player::movePlayer() //change everything to use game board
         playerPosList->insertHead(temp);
         if(temp.x == foodtemp.x && temp.y == foodtemp.y)
         {
+            myfoodclass->clearFoodPos();
             myfoodclass->generateFood(playerPosList);
         }
         else
@@ -138,6 +143,7 @@ void Player::movePlayer() //change everything to use game board
         playerPosList->insertHead(temp);
         if(temp.x == foodtemp.x && temp.y == foodtemp.y)
         {
+            myfoodclass->clearFoodPos();
             myfoodclass->generateFood(playerPosList);
         }
         else
@@ -149,6 +155,12 @@ void Player::movePlayer() //change everything to use game board
     {
 
     }
+
+    if ( i < playerPosList->getSize()){
+        mainGameMechsRef->incrementScore();
+        i++;
+    }
+ 
 }
 
 Player::Dir Player::getenumdirection()

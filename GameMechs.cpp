@@ -10,7 +10,7 @@ GameMechs::GameMechs()
     input = 0;
     exitFlag = false;
     loseFlag = false;
- 
+    
     score = 0;
     boardSizeX = 30;   //Default board size
     boardSizeY = 15;
@@ -28,9 +28,9 @@ GameMechs::GameMechs(int boardX, int boardY)
 }
  
 // do you need a destructor?
-// GameMechs::~GameMechs(){
- 
-// }
+GameMechs::~GameMechs(){
+    
+}
  
  
 //Getters
@@ -92,8 +92,7 @@ void GameMechs::clearInput()
  
 void GameMechs::incrementScore()
 {
-    score+=5;
- 
+    score += 1;
     /*Specialized setter for the score field.
     Assumption is that the score can only be incremented 1
     at a time for every food item collected.
@@ -103,4 +102,4 @@ void GameMechs::incrementScore()
     /* if special food is eaten then score increased by 10*/
 }
 // Provide definitions of more member functions as required
-// See Project Manua
+// See Project Manual

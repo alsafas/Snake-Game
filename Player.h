@@ -35,6 +35,8 @@ class Player
         GameMechs* mainGameMechsRef;
         //reference to food class
         snakeFood* myfoodclass;
+
+        int i;
 };
 
 #endif

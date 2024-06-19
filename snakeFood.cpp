@@ -29,25 +29,25 @@ snakeFood::~snakeFood()
 
 void snakeFood::generateFood(objPosArrayList* accessarray)
 {
-    
+   
     //blockOff should contain player position
-
+ 
     //generate random x and y coordinates for your food item,
     // and make sure that they are NOT:
     // 1. on the border
     // 2. or clash with the player position (blockOff)
-
+ 
     // Check x and y against 0 and boardSizeX/boardSizeY to make sure they are not on the border
-
+ 
     // Check against the player position to make sure they are not on the player position
     // use isPosEqual() method instead of doing element-by-element comparison
-
+ 
     //and then set the food position using the setObjPos method of the objPos class with newly generated x and y coordinates
     bool ontopflag = false;
-    int vector[30][15]; 
-
+    int vector[30][15];
+ 
     srand(time(NULL)); // Seed the random number generator with the current time
-    
+   
     for(i = 0; i < boardX; i++)
     {
         for(j = 0; j < boardY; j++)
@@ -67,21 +67,24 @@ void snakeFood::generateFood(objPosArrayList* accessarray)
     {
         x = rand() % (boardX -1);
         y = rand() % (boardY -1);
-
+ 
         objPos temp;
-
+        objPos tempFoodPos;
+ 
+        tempFoodPos.setObjPos(x, y, 'o');
+ 
         if(vector[x][y] == 0)
         {
            for(int k = 0; k < accessarray->getSize(); k++)
                 {
                     accessarray->getElement(temp, k);
-                    if(isPosEqual(&temp) == true) 
+                    if(tempFoodPos.isPosEqual(&temp) == true)
                     {
                         ontopflag = true;
                         break;
                     }
                 }  
-          
+         
         if(ontopflag == false)
         {
             vector[x][y]++;
@@ -91,7 +94,7 @@ void snakeFood::generateFood(objPosArrayList* accessarray)
         }
         ontopflag = false;
     }
-
+ 
 }
 
 void snakeFood::getFoodPos(objPos &returnPos)

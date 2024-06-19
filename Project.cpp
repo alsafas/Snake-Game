@@ -97,9 +97,9 @@ void RunLogic(void)
         case '0': //testing lose flag
             gameM->setLoseFlag();
             break;
-        case '=': //testing score increment
-            gameM->incrementScore();
-            break;
+        // case '=': //testing score increment
+        //     gameM->incrementScore();
+        //     break;
         /* case 'o': //testing food generation
             food->clearFoodPos();
             food->generateFood(myPlayerPosList);
@@ -183,7 +183,7 @@ void DrawScreen(void)
     MacUILib_printf("1: Slowest  2: Slow  3: Normal  4: Fast  5: Fastest\n");
     MacUILib_printf("Score: %d\n", gameM->getScore());
     MacUILib_printf("Press 0 to test lose flag\n");
-    MacUILib_printf("Press = to test score increment\n");
+    // MacUILib_printf("Press = to test score increment\n");
 
     MacUILib_printf("the direction is: %d", myPlayer->getenumdirection());
 }
