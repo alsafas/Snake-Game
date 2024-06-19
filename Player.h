@@ -20,23 +20,20 @@ class Player
         Player(GameMechs* thisGMRef, snakeFood* myfood);
         ~Player();
 
-        objPosArrayList* getPlayerPos(); // Upgrade this in iteration 3.
+        objPosArrayList* getPlayerPos(); 
         void updatePlayerDir();
         void movePlayer();
 
         bool checkSelfCollision();
-        //using this with food now
-       Player::Dir getenumdirection();
+        Player::Dir getenumdirection();
     private:
-        objPosArrayList* playerPosList;   // Upgrade this in iteration 3.       
+        objPosArrayList* playerPosList;          
         enum Dir dir;
 
         // Need a reference to the Main Game Mechanisms
         GameMechs* mainGameMechsRef;
         //reference to food class
         snakeFood* myfoodclass;
-
-        //int scoreflag;
 };
 
 #endif

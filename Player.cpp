@@ -7,14 +7,12 @@ Player::Player(GameMechs* thisGMRef, snakeFood* myfood)
     dir = STOP;
     myfoodclass = myfood;
 
-    //scoreflag = 1;
- 
     // more actions to be included
     objPos temp(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '*'); //use getboardsize functions
- 
+                                                                                    //to place the player in the middle at startup 
     playerPosList = new objPosArrayList();
-    //no heap members yet
-    playerPosList->insertHead(temp);
+
+    playerPosList->insertHead(temp);        //create the snake head
 
 }
  
@@ -26,13 +24,11 @@ Player::~Player()
  
 objPosArrayList* Player::getPlayerPos()
 {
-    // return the reference to the playerPos array list (ignoring this for now)
-    //returnPos.setObjPos(playerPos.x, playerPos.y, playerPos.symbol);
-
+    // return the reference to the playerPos array list 
     return playerPosList;
 }
  
-void Player::updatePlayerDir()
+void Player::updatePlayerDir()          //set the direction of the player based on keyboard input
 {
     char input = mainGameMechsRef->getInput();
      switch(input)
@@ -69,35 +65,35 @@ void Player::updatePlayerDir()
     // PPA3 input processing logic      
 }
  
-void Player::movePlayer() //change everything to use game board
+void Player::movePlayer() 
 {
-    bool collision = false;
-    bool specialflag = false;
+    bool collision = false;             //track if player got food
+    bool specialflag = false;           //track if food collected was special or normal 
     objPos temp;
     objPos foodtemp;
     objPos tailtemp;
     playerPosList->getHeadElement(temp);
-    //myfoodclass->getFoodPos(foodtemp);
+   
     playerPosList->getTailElement(tailtemp);
 
-    // PPA3 Finite State Machine logic
+    // PPA3 Finite State Machine logic (works mostly the same for each direction)
     if(dir == UP)
     {
-        if(temp.y <= 1)
+        if(temp.y <= 1)                                  //wraparound logic 
         {
             temp.y = mainGameMechsRef->getBoardSizeY() - 1; 
         }
-        temp.y--;
-        playerPosList->insertHead(temp);
-        myfoodclass->getFoodPos(foodtemp, 0);
-        if(temp.x == foodtemp.x && temp.y == foodtemp.y)
+        temp.y--;                                              
+        playerPosList->insertHead(temp);                    //makes snake appear to move forward
+        myfoodclass->getFoodPos(foodtemp, 0);               //get the position of the superfood 
+        if(temp.x == foodtemp.x && temp.y == foodtemp.y)     //check if player got super food
             {
-                myfoodclass->clearFoodPos();
+                myfoodclass->clearFoodPos();                    //change the food positions 
                 myfoodclass->generateFood(playerPosList);
-                collision = true;
+                collision = true;                           
                 specialflag = true;
             }
-        for(int i = 1; i < 5; i++)
+        for(int i = 1; i < 5; i++)                          //check if player got any normal food 
         {
             myfoodclass->getFoodPos(foodtemp, i);
             if(temp.x == foodtemp.x && temp.y == foodtemp.y)
@@ -108,28 +104,17 @@ void Player::movePlayer() //change everything to use game board
                 break;
             }
         }
-        if(collision == false || specialflag == true)
+        if(collision == false || specialflag == true)       //if we dont want the snake to grow, remove the tail
         {
             playerPosList->removeTail();
         }
-
-      /*   if(temp.x == foodtemp.x && temp.y == foodtemp.y)
-        {
-            myfoodclass->clearFoodPos();
-            myfoodclass->generateFood(playerPosList);
-        }
-        else
-        {
-            playerPosList->removeTail();
-        } */
-        if ( temp.x == tailtemp.x && temp.y == tailtemp.y)   
+        if ( temp.x == tailtemp.x && temp.y == tailtemp.y)   //check if snake collided with itself 
         {
             mainGameMechsRef->setLoseFlag();
             mainGameMechsRef->setExitTrue();
         }
-
-       
     }
+
     else if(dir == DOWN)
     {
         if(temp.y >= mainGameMechsRef->getBoardSizeY() - 2) 
@@ -161,15 +146,6 @@ void Player::movePlayer() //change everything to use game board
         {
             playerPosList->removeTail();
         }
-        // if(temp.x == foodtemp.x && temp.y == foodtemp.y)
-        // {
-        //     myfoodclass->clearFoodPos();
-        //     myfoodclass->generateFood(playerPosList);
-        // }
-        // else
-        // {
-        //     playerPosList->removeTail();
-        // }
         if ( temp.x == tailtemp.x && temp.y == tailtemp.y)   
         {
             mainGameMechsRef->setLoseFlag();
@@ -177,6 +153,7 @@ void Player::movePlayer() //change everything to use game board
         }
    
     }
+
     else if(dir == LEFT)
     {
         if(temp.x <= 1)
@@ -208,21 +185,13 @@ void Player::movePlayer() //change everything to use game board
         {
             playerPosList->removeTail();
         }
-      /*   if(temp.x == foodtemp.x && temp.y == foodtemp.y)
-        {
-            myfoodclass->clearFoodPos();
-            myfoodclass->generateFood(playerPosList);
-        }
-        else
-        {
-            playerPosList->removeTail();
-        } */
         if ( temp.x == tailtemp.x && temp.y == tailtemp.y)   
         {
             mainGameMechsRef->setLoseFlag();
             mainGameMechsRef->setExitTrue();
         }
     }
+
     else if(dir == RIGHT)
     {
         if(temp.x >= mainGameMechsRef->getBoardSizeX() -2) 
@@ -254,15 +223,6 @@ void Player::movePlayer() //change everything to use game board
         {
             playerPosList->removeTail();
         }
-    /*     if(temp.x == foodtemp.x && temp.y == foodtemp.y)
-        {
-            myfoodclass->clearFoodPos();
-            myfoodclass->generateFood(playerPosList);
-        }
-        else
-        {
-            playerPosList->removeTail();
-        } */
         if ( temp.x == tailtemp.x && temp.y == tailtemp.y)   
         {
             mainGameMechsRef->setLoseFlag();
@@ -270,11 +230,9 @@ void Player::movePlayer() //change everything to use game board
         }
     }
 
-
-    if (collision == true)
-    {
+    if (collision == true)          //if food was collected, increment the score by different amounts depending
+    {                                                          // on whether it was special or not 
         mainGameMechsRef->incrementScore(specialflag);
-        //scoreflag++;
     }
  
 }
@@ -293,9 +251,9 @@ bool Player::checkSelfCollision()
     for (int i = 1; i < playerPosList->getSize(); i++)
     {
         playerPosList->getElement(temp2, i);
-        if (temp.x == temp2.x && temp.y == temp2.y)
+        if (temp.x == temp2.x && temp.y == temp2.y)   //check each body element position against the head pos
         {
-            return true;
+            return true;                                //if pos are the same, report that collision occured
         }
     }
     return false;

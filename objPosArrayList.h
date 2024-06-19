@@ -1,7 +1,8 @@
 #ifndef OBJPOS_ARRAYLIST_H
 #define OBJPOS_ARRAYLIST_H
  
-#define ARRAY_MAX_CAP 364
+#define ARRAY_MAX_CAP 364           //this is the maximum value of spaces the snake could occupy on 
+                                    //our game board
 
 #include "objPos.h"
 

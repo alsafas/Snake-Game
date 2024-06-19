@@ -12,8 +12,7 @@ using namespace std;
 
 snakeFood::snakeFood()
 {
-    foodBucket = new objPosArrayList(); //Initialize outside the game board
-                                //so that food is not initially displayed
+    foodBucket = new objPosArrayList(); 
     numofFood = 5;
     count = 0;
     i, j, x, y;
@@ -43,12 +42,12 @@ void snakeFood::generateFood(objPosArrayList* accessarray)
     // use isPosEqual() method instead of doing element-by-element comparison
  
     //and then set the food position using the setObjPos method of the objPos class with newly generated x and y coordinates
-    bool ontopflag = false;
-    int vector[30][15] = {0};
+    bool ontopflag = false;     //tracking if food lands on player, other food, border
+    int vector[30][15] = {0};      //bit vector method for random generation
  
     srand(time(NULL)); // Seed the random number generator with the current time
    
-    for(i = 0; i < boardX; i++)
+    for(i = 0; i < boardX; i++)     //bit vector method setup 
     {
         for(j = 0; j < boardY; j++)
         {
@@ -63,7 +62,7 @@ void snakeFood::generateFood(objPosArrayList* accessarray)
         }
     }
  
-    while(count < numofFood-1)
+    while(count < numofFood-1)      //get 4 regular food in random non-overlapping positions on the board 
     {
         x = rand() % (boardX -1);
         y = rand() % (boardY -1);
@@ -74,7 +73,7 @@ void snakeFood::generateFood(objPosArrayList* accessarray)
  
         if(vector[x][y] == 0)
         {
-           for(int k = 0; k < accessarray->getSize(); k++)
+           for(int k = 0; k < accessarray->getSize(); k++)      //check position against snake 
             {
                 accessarray->getElement(temp, k);
                 if(tempFoodPos.isPosEqual(&temp) == true)
@@ -83,7 +82,7 @@ void snakeFood::generateFood(objPosArrayList* accessarray)
                     break;
                 }
             }  
-            for(int j = 0; j < foodBucket->getSize(); j++)
+            for(int j = 0; j < foodBucket->getSize(); j++)      //check postion against other food 
             {
                 foodBucket->getElement(temp, j);
                 if(tempFoodPos.isPosEqual(&temp) == true)
@@ -93,17 +92,16 @@ void snakeFood::generateFood(objPosArrayList* accessarray)
                 }
             }
          
-        if(ontopflag == false)
+        if(ontopflag == false)      //if the position is empty, mark it full, and add food in that position 
         {
             vector[x][y]++;
-            //foodPos.setObjPos(x, y, 'o');
             foodBucket->insertHead(tempFoodPos);
             count++;
         }
         }
         ontopflag = false;
     }
-    while(count < numofFood)
+    while(count < numofFood)        //generate one special food in the same manor as above but with ? symbol
     {
          x = rand() % (boardX -1);
         y = rand() % (boardY -1);
@@ -149,14 +147,13 @@ void snakeFood::generateFood(objPosArrayList* accessarray)
 void snakeFood::getFoodPos(objPos &returnPos, int index)
 {
     foodBucket->getElement(returnPos, index);
-    //returnPos.setObjPos(foodPos.x, foodPos.y, foodPos.symbol);
 }
 
-void snakeFood::clearFoodPos(){
+void snakeFood::clearFoodPos()
+{
     count = 0;
     for(int i = 0; i < foodBucket->getSize(); i++)
     {
         foodBucket->removeTail();
     }
-    //foodPos.setObjPos(-1,-1, 'o');
 }

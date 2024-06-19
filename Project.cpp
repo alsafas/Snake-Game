@@ -24,7 +24,7 @@ void DrawScreen(void);
 void LoopDelay(void);
 void CleanUp(void);
 
-int speed;
+int speed;                  //speed controls how fast the game appears to move 
 
 int main(void)
 {
@@ -64,16 +64,11 @@ void Initialize(void)
 
 void GetInput(void)
 {
-   //gameM->setInput(gameM->getInput());
+   //no input is needed here as it is grabbed in runlogic funtions 
 }
 
 void RunLogic(void)
-{   
-    /* if (myPlayer->getenumdirection() != 0) // Generate food after player has moved
-    {
-        food->generateFood(myPlayerPosList);
-    } */ // the food should be displayed before the player moves
-
+{
     switch(gameM->getInput())
     {                      
         case 27:  // Escape to exit
@@ -97,20 +92,13 @@ void RunLogic(void)
         case '0': //testing lose flag
             gameM->setLoseFlag();
             break;
-        // case '=': //testing score increment
-        //     gameM->incrementScore();
-        //     break;
-        /* case 'o': //testing food generation
-            food->clearFoodPos();
-            food->generateFood(myPlayerPosList);
-            break; */
         default:
             break;
     }
 
-    if (gameM->getLoseFlagStatus() == true)
+    if(gameM->getLoseFlagStatus() == true)
     {
-        gameM->setExitTrue();
+        gameM->setExitTrue();                   //exit without losing the game
     } 
 
        //run update player direction
@@ -118,11 +106,8 @@ void RunLogic(void)
  
     //run move player
     myPlayer->movePlayer();
- 
-    //update the player position object for printing 
-    //myPlayer->getPlayerPos(playerPosition);
 
-    if (myPlayer->checkSelfCollision() == true)
+    if (myPlayer->checkSelfCollision() == true)     //exit by snake death
     {
         gameM->setLoseFlag();
         gameM->setExitTrue();
@@ -139,9 +124,7 @@ void DrawScreen(void)
     objPos temp;
     bool printspace = true;
 
-    //food->getFoodPos(foodPos);
-
-    //Game board
+    //Print out the Game Board, the Snake, and the Food
     MacUILib_printf("Press ESC to exit\n");   
 
     MacUILib_printf("\n"); 
@@ -154,10 +137,8 @@ void DrawScreen(void)
                 MacUILib_printf("#");
                 printspace = false;
             }
-            else //if(j == foodPos.x && i == foodPos.y)
+            else 
             {
-                //MacUILib_printf("%c", foodPos.symbol);
-                //printspace = false;
                 for(int l = 0; l < 5; l++)
                 {
                     food->getFoodPos(tempfood, l);
@@ -198,10 +179,6 @@ void DrawScreen(void)
     MacUILib_printf("Press 1-5 to change speed\n");
     MacUILib_printf("1: Slowest  2: Slow  3: Normal  4: Fast  5: Fastest\n");
     MacUILib_printf("Score: %d\n", gameM->getScore());
-    MacUILib_printf("Press 0 to test lose flag\n");
-    // MacUILib_printf("Press = to test score increment\n");
-
-    MacUILib_printf("the direction is: %d", myPlayer->getenumdirection());
 }
 
 void LoopDelay(void)
@@ -234,9 +211,17 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     MacUILib_clearScreen();   
-        if (gameM->getLoseFlagStatus() == true){
-        MacUILib_printf("\nGame Over!\n\n");
+    if (gameM->getLoseFlagStatus() == true)     //print a message depending on how the game finished 
+    {
+        MacUILib_printf("\nYou Lost\n");
     }
+    else
+    {   
+        MacUILib_printf("You Quit the Game");
+    }
+    MacUILib_printf("\nGame Over!\n\n");
+
+
     MacUILib_printf("Final score: %d\n", gameM->getScore());
 
     delete gameM;

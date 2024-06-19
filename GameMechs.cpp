@@ -28,7 +28,8 @@ GameMechs::GameMechs(int boardX, int boardY)
 }
  
 // do you need a destructor?
-GameMechs::~GameMechs(){
+GameMechs::~GameMechs()   //nothin allocated on heap in the constructor 
+{
     
 }
  
@@ -90,9 +91,9 @@ void GameMechs::clearInput()
     input = 0;
 }
  
-void GameMechs::incrementScore(bool flag)
+void GameMechs::incrementScore(bool flag)       //flag true means a special food was eaten
 {
-    if(flag == true)
+    if(flag == true)                    
     {
         score += 5;
     }
@@ -101,13 +102,4 @@ void GameMechs::incrementScore(bool flag)
         score += 1;
     }
   
-    /*Specialized setter for the score field.
-    Assumption is that the score can only be incremented 1
-    at a time for every food item collected.
-    You may consider changing this method to allow the
-    score to be increased by numbers other than 1*/
- 
-    /* if special food is eaten then score increased by 10*/
 }
-// Provide definitions of more member functions as required
-// See Project Manual
