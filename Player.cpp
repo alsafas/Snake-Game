@@ -85,6 +85,7 @@ void Player::movePlayer() //change everything to use game board
         playerPosList->insertHead(temp);
         if(temp.x == foodtemp.x && temp.y == foodtemp.y)
         {
+            myfoodclass->clearFoodPos();
             myfoodclass->generateFood(playerPosList);
         }
         else
@@ -103,6 +104,7 @@ void Player::movePlayer() //change everything to use game board
         playerPosList->insertHead(temp);
         if(temp.x == foodtemp.x && temp.y == foodtemp.y)
         {
+            myfoodclass->clearFoodPos();
             myfoodclass->generateFood(playerPosList);
         }
         else
@@ -121,6 +123,7 @@ void Player::movePlayer() //change everything to use game board
         playerPosList->insertHead(temp);
         if(temp.x == foodtemp.x && temp.y == foodtemp.y)
         {
+            myfoodclass->clearFoodPos();
             myfoodclass->generateFood(playerPosList);
         }
         else
@@ -138,6 +141,7 @@ void Player::movePlayer() //change everything to use game board
         playerPosList->insertHead(temp);
         if(temp.x == foodtemp.x && temp.y == foodtemp.y)
         {
+            myfoodclass->clearFoodPos();
             myfoodclass->generateFood(playerPosList);
         }
         else
