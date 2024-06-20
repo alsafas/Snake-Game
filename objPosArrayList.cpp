@@ -12,12 +12,12 @@ objPosArrayList::objPosArrayList()
 
 objPosArrayList::~objPosArrayList()
 {
-    delete[] aList;
+    delete[] aList;                       // delete the array from the heap
 }
 
 int objPosArrayList::getSize()
 {
-    return sizeList;
+    return sizeList;                      //return the size of the list
 }
 
 void objPosArrayList::insertHead(objPos thisPos)
@@ -56,7 +56,7 @@ void objPosArrayList::removeHead()
 
 void objPosArrayList::removeTail()
 {
-    if(sizeList > 1)
+    if(sizeList > 1)                            //if the snake is longer than 1 part, remove the tail
     {
         sizeList--;
     }

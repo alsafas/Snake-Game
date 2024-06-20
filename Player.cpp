@@ -115,7 +115,7 @@ void Player::movePlayer()
         }
     }
 
-    else if(dir == DOWN)
+    else if(dir == DOWN)                                                // repeat for other directions vv
     {
         if(temp.y >= mainGameMechsRef->getBoardSizeY() - 2) 
         {
@@ -253,7 +253,7 @@ bool Player::checkSelfCollision()
         playerPosList->getElement(temp2, i);
         if (temp.x == temp2.x && temp.y == temp2.y)   //check each body element position against the head pos
         {
-            return true;                                //if pos are the same, report that collision occured
+            return true;                               //if pos are the same, report that collision occured
         }
     }
     return false;

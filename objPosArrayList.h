@@ -9,19 +9,23 @@
 class objPosArrayList
 {
     private:
+        // Data members
         objPos* aList;
         int sizeList;
         int sizeArray;
 
     public:
+        // Constructors
         objPosArrayList();
         ~objPosArrayList();
 
+        // Methods
         void insertHead(objPos thisPos);
         void insertTail(objPos thisPos);
         void removeHead();
         void removeTail();
         
+        // Getters
         int getSize();
         void getHeadElement(objPos &returnPos);
         void getTailElement(objPos &returnPos);

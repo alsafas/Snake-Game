@@ -17,6 +17,8 @@ class GameMechs
     //all variables and methods created based on UML diagram 
 
     private:
+
+        // Data members
         char input;
         bool exitFlag;
         bool loseFlag;

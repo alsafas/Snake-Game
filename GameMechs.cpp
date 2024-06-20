@@ -27,8 +27,8 @@ GameMechs::GameMechs(int boardX, int boardY)
     boardSizeY = boardY;
 }
  
-// do you need a destructor?
-GameMechs::~GameMechs()   //nothin allocated on heap in the constructor 
+// do you need a destructor? no heap memory is allocated in the constructor 
+GameMechs::~GameMechs()   // therefore there is no need for a destructor
 {
     
 }
@@ -48,8 +48,8 @@ bool GameMechs::getLoseFlagStatus()
  
 char GameMechs::getInput()
 {
-    if (MacUILib_hasChar() != 0){
-        input = MacUILib_getChar();
+    if (MacUILib_hasChar() != 0){  //if there is a char in the buffer
+        input = MacUILib_getChar(); //get the char
     }
     return input;
 }
