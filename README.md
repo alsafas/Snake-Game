@@ -13,14 +13,6 @@ Group Member 1 Information:
 
 Name: Alsafadi, Shahd
 
-MacID: alsafas
-
-Student No.: 400450393
-
 Group Member 2 Information:
 
 Name: Louerenco, Bethany
-
-MacID: lourenb
-
-Student No.: 400399962
